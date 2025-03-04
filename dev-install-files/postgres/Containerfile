@@ -1,0 +1,22 @@
+# Usar una imagen oficial de PostgreSQL
+FROM docker.io/postgres:16
+
+# Establecer variables de entorno
+ENV POSTGRES_USER=mi_usuario
+ENV POSTGRES_PASSWORD=mi_contrasena_segura
+ENV POSTGRES_DB=mi_base_de_datos
+
+# Copiar scripts de inicialización (opcional)
+#COPY init.sql /docker-entrypoint-initdb.d/
+
+# Crear un volumen para datos persistentes
+VOLUME /var/lib/postgresql/data
+
+# Exponer el puerto de PostgreSQL
+EXPOSE 5432
+
+# Usar un usuario no root para mayor seguridad
+#USER postgres
+
+# Comando para iniciar PostgreSQL
+#CMD ["postgres"]

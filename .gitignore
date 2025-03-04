@@ -135,3 +135,5 @@ strapi-backend/.cache/
 strapi-backend/build/
 strapi-backend/.env
 
+dev-install-files/postgres/data
+

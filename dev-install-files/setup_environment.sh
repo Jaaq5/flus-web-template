@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Clean terminal
+bash
+clear
+
 # Verifica si el script se está ejecutando como root
 if [ "$(id -u)" -ne 0 ]; then
   echo "Por favor, ejecuta este script como root o con sudo."
@@ -25,6 +29,7 @@ else
   echo "NVM no está instalado, procediendo a la instalación..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
   source ~/.bashrc
+  nvm install 22
 fi
 
 # Instala PostgreSQL
@@ -36,4 +41,6 @@ pacman -S --needed --noconfirm nginx
 # Mensaje final
 echo "La instalación de los paquetes necesarios ha finalizado."
 echo "Recuerda configurar PostgreSQL, Nginx y otros servicios según sea necesario."
+
+
 

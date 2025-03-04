@@ -1,0 +1,21 @@
+# Usar la imagen oficial de Nginx 1.26.2
+FROM docker.io/nginx:1.26.2
+
+# Establecer el mantenedor
+LABEL maintainer="tu_correo@ejemplo.com"
+
+# Copiar archivos de configuración si los tienes (opcional)
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copiar archivos estáticos o HTML (opcional)
+# COPY ./html /usr/share/nginx/html
+
+# Exponer el puerto 80 para el servicio Nginx
+EXPOSE 80
+
+# Comando para iniciar Nginx (este es el predeterminado de la imagen oficial)
+# CMD ["nginx", "-g", "daemon off;"]
+
+# podman build -t mi_nginx:1.26.2 .
+# podman run -d -p 8082:80 mi_nginx:1.26.2
+

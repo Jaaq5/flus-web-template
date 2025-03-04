@@ -1,0 +1,19 @@
+# container-compose.yml
+version: '3.8'
+
+services:
+  app:
+    build: ./
+    container_name: nodejs_v22.13.1
+    ports:
+      - "3001:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+
+# mkdir ./postgres/data
+# chmod -R 700 ./postgres/data
+# podman-compose build
+# podman-compose up -d
+

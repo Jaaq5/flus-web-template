@@ -1,0 +1,12 @@
+# Usar una imagen oficial de pgAdmin4
+FROM docker.io/dpage/pgadmin4:8
+
+# Establecer variables de entorno
+ENV PGADMIN_DEFAULT_EMAIL=admin@example.com
+ENV PGADMIN_DEFAULT_PASSWORD=mi_contrasena_segura
+
+# Exponer el puerto de pgAdmin4
+EXPOSE 80
+
+# Comando para iniciar pgAdmin4
+#CMD ["python", "pgAdmin4.py"]

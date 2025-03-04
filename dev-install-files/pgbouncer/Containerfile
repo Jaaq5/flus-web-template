@@ -1,0 +1,20 @@
+# Usar la imagen oficial de pgbouncer v1.23.1-p3
+FROM docker.io/edoburu/pgbouncer:v1.23.1-p3
+
+# Establecer el mantenedor
+LABEL maintainer="tu_correo@ejemplo.com"
+
+# Configuración del archivo de PgBouncer
+COPY pgbouncer.ini /etc/pgbouncer/pgbouncer.ini
+#COPY userlist.txt /etc/pgbouncer/userlist.txt
+#RUN chmod 644 /etc/pgbouncer/userlist.txt
+
+# Exponer el puerto 6432, que es el puerto predeterminado de pgbouncer
+#EXPOSE 6432
+EXPOSE 5432
+
+# Comando para iniciar pgbouncer
+# CMD ["pgbouncer", "/etc/pgbouncer/pgbouncer.ini"]
+
+# podman build -t pgbouncer:v1.23.1-p3 .
+# podman run -d -p 6433:6432 pgbouncer:v1.23.1-p3

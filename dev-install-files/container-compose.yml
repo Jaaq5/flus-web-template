@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: ./postgres
+    container_name: postgres_v16
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: mi_usuario
+      POSTGRES_PASSWORD: mi_contrasena_segura
+      POSTGRES_DB: mi_base_de_datos
+    ports:
+      - "5433:5432"
+    networks:
+      - mi_red
+
+  pgbouncer:
+    build: ./pgbouncer
+    container_name: pgbouncer_v1.23.1-p3
+    environment:
+      # Usuario y contraseña para PgBouncer
+      #PGBOUNCER_USER: mi_usuario
+      #PGBOUNCER_PASSWORD: mi_contrasena_segura
+      # Información de conexión a la base de datos PostgreSQL
+      DB_USER: mi_usuario
+      DB_PASSWORD: mi_contrasena_segura
+      DB_HOST: postgres  # Nombre del servicio de PostgreSQL (en este caso "postgres")
+      DB_PORT: 5432      # Puerto de PostgreSQL
+      DB_NAME: mi_base_de_datos
+      # Configuración adicional de PgBouncer
+      POOL_MODE: session
+      MAX_CLIENT_CONN: 100
+      DEFAULT_POOL_SIZE: 20
+    ports:
+      - "5434:5432"
+    networks:
+      - mi_red
+    depends_on:
+      - postgres
+
+  pgadmin:
+    build: ./pgadmin
+    container_name: pgadmin4_v8
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: mi_contrasena_segura
+    ports:
+      - "8081:80"
+    networks:
+      - mi_red
+    depends_on:
+      - postgres
+
+  nginx:
+    build: ./nginx
+    container_name: nginx_v1.26.2
+    ports:
+      - "8082:80"
+    #volumes:
+      #- ./nginx.conf:/etc/nginx/nginx.conf  # Si tienes una configuración personalizada de Nginx
+      #- ./html:/usr/share/nginx/html  # Si tienes archivos HTML estáticos
+    networks:
+      - mi_red
+    #depends_on:
+      #- pgadmin  # Puede depender de pgAdmin si quieres redirigir tráfico
+
+networks:
+  mi_red:
+    name: mi_red
+
+# mkdir ./postgres/data
+# chmod -R 700 ./postgres/data
+# podman-compose build
+# podman-compose up -d
+
